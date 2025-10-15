@@ -7,11 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @font-face {
-            font-family: 'American Captain';
-            /* Note: Font URLs are local and will not load in this sandbox environment. */
-            src: url('/fonts/AmericanCaptain.woff2') format('woff2'),
-                 url('/fonts/AmericanCaptain.ttf') format('truetype'),
-                 url('/fonts/AmericanCaptain.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -21,37 +16,29 @@
             outline: 2px solid rgba(255,255,255,0.12);
             outline-offset: 2px;
         }
-
-        /* Custom responsive scaling for the main content area */
         .main-content-scale {
-            transform: scale(1); /* Default 100% scale for mobile */
+            transform: scale(1); 
             transform-origin: center center;
             transition: transform 0.4s ease-in-out;
         }
-        @media (min-width: 768px) { /* Apply 125% scale on medium screens and up (md) */
+        @media (min-width: 768px) { 
             .main-content-scale {
                 transform: scale(1.25);
             }
         }
-        
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideInLeftSlight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
         .animate-h1 { animation: slideInLeft 0.6s ease-out forwards; }
         .animate-p { opacity: 0; animation: slideInLeftSlight 0.6s ease-out 0.18s forwards; }
         .animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
-
         .logo-glow {
             transition: text-shadow 0.3s ease;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.1); 
         }
-
         .logo-glow:hover, .logo-glow:focus {
             text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px rgba(255, 255, 255, 0.7);
         }
-        
-        /* === Nav Link Glitch Keyframe (from Block 1) === */
         @keyframes shift-glitch {
             0%, 100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
             20% { clip-path: inset(0 0 80% 0); transform: translateX(-1px); }
@@ -59,21 +46,15 @@
             60% { clip-path: inset(0 0 50% 0); transform: translateX(-0.5px); }
             80% { clip-path: inset(60% 0 0 0); transform: translateX(0.5px); }
         }
-
-        /* === NAV LINK BASE STYLES & GLITCH SETUP === */
         .nav-link {
             position: relative;
             color: inherit;
-            text-transform: uppercase; /* Kept from Block 2 for consistency */
-            font-weight: 600; /* Kept from Block 2 for consistency */
-            letter-spacing: 0.05em; /* Kept from Block 2 for consistency */
-            
-            /* Default Glow Transition (Used for Mobile) */
+            text-transform: uppercase; 
+            font-weight: 600; 
+            letter-spacing: 0.05em; 
             transition: text-shadow 0.3s ease, color 0.3s ease;
             text-shadow: 0 0 1px rgba(255, 255, 255, 0.2); 
         }
-
-        /* Desktop Glitch Layer Setup (from Block 1) */
         .nav-link::before {
             content: attr(data-text);
             position: absolute;
@@ -86,29 +67,21 @@
             z-index: 10;
             opacity: 0;
         }
-
-        /* Mobile Hover/Focus (Smooth Glow) */
         .nav-link:hover, .nav-link:focus {
             color: #fff;
             text-shadow: 0 0 10px #fff, 0 0 20px rgba(255, 255, 255, 0.7);
         }
-
-        /* === DESKTOP GLITCH OVERRIDE (using shift-glitch from Block 1) === */
         @media (min-width: 768px) {
             .nav-link:hover, .nav-link:focus {
-                color: rgba(255, 255, 255, 0.6); /* Slightly fade base text */
-                text-shadow: none; /* Remove smooth glow from base */
+                color: rgba(255, 255, 255, 0.6);
+                text-shadow: none; 
             }
-
             .nav-link:hover::before, .nav-link:focus::before {
-                opacity: 1; /* Show glitch layer */
+                opacity: 1; 
                 animation: shift-glitch 0.4s steps(5, end) infinite; 
                 text-shadow: 0 0 3px #fff, 0 0 9px rgba(255, 255, 255, 0.9);
             }
         }
-        /* END DESKTOP GLITCH OVERRIDE */
-
-
         .cta-filled {
             transition: all 0.3s ease;
         }
@@ -117,7 +90,6 @@
             background-color: rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
-        
         .cta-outline {
             transition: all 0.3s ease;
         }
@@ -128,18 +100,15 @@
             background-color: rgba(255, 255, 255, 0.05);
             transform: translateY(-1px);
         }
-        
         @keyframes slideInRight { 
             from { opacity: 0; transform: translateX(50px); } 
             to { opacity: 1; transform: translateX(0); } 
         }
-
         .neon-box {
             opacity: 0; 
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease-out, border-color 0.3s ease-out;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
-
         .neon-box:hover, .neon-box:focus {
             transform: scale(1.02);
             border-color: #fff;
@@ -147,12 +116,9 @@
                         0 0 25px rgba(255, 255, 255, 0.7), 
                         0 0 40px rgba(255, 255, 255, 0.4);
         }
-        
         .box-1 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards; }
         .box-2 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards; }
         .box-3 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards; }
-
-        /* Mobile Menu Overrides (Kept advanced animation from Block 2) */
         #menu-toggle { display: none; }
         #mobile-menu { 
             max-height: 0; 
@@ -168,7 +134,7 @@
             z-index: 40;
             background-color: rgba(0, 0, 0, 0.95); 
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            width: 100%; /* Important for absolute positioning */
+            width: 100%; 
         }
         #menu-toggle:checked ~ #mobile-menu { 
             max-height: 500px; 
@@ -176,19 +142,15 @@
             transform: translateY(0); 
         }
         @media (min-width: 768px) { #mobile-menu, #menu-toggle, label[for="menu-toggle"] { display: none; } }
-
         @media (max-width: 767px) {
             .responsive-padding { padding-top: 5rem !important; padding-bottom: 5rem !important; }
             .responsive-maxwidth { max-width: 80rem !important; }
-            /* The main scaling will now handle size */
         }
-
         .matrix-text {
             position: relative;
             text-shadow: 0 0 10px #fff, 0 0 20px #000, 0 0 30px #000;
             z-index: 2;
         }
-
         .matrix-text::before {
             content: attr(data-text);
             position: absolute;
@@ -196,13 +158,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            animation: glitch 2s infinite; /* Slower, continuous glitch for the main header */
+            animation: glitch 2s infinite;
             clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
             transform: translate(-2px, -2px);
             color: #fff;
             text-shadow: 0 0 3px #fff, 0 0 10px #fff;
         }
-
         @keyframes glitch {
             0%, 100% {
                 clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
@@ -217,13 +178,11 @@
                 transform: translate(5px, 5px);
             }
         }
-        
-        /* New style for the neon photo frame */
         .neon-photo-frame {
             box-shadow: 
-                0 0 0 3px rgba(255, 255, 255, 0.8), /* Inner white ring */
-                0 0 15px rgba(255, 255, 255, 0.7); /* Outer glow */
-            filter: grayscale(100%); /* Force B&W */
+                0 0 0 3px rgba(255, 255, 255, 0.8), 
+                0 0 15px rgba(255, 255, 255, 0.7); 
+            filter: grayscale(100%); 
             transition: box-shadow 0.3s ease;
         }
         .neon-photo-frame:hover {
@@ -231,36 +190,24 @@
                 0 0 0 5px #fff, 
                 0 0 25px #fff;
         }
-
     </style>
 </head>
 <body class="bg-black">
-
-    <main class="dark-portfolio min-h-screen bg-black text-white font-sans" style="font-family: 'American Captain', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
-        
-        <!-- Hamburger Menu Toggle Checkbox (Hidden) -->
+    <main class="dark-portfolio min-h-screen bg-black text-white font-sans" style="font-family: 'American Captain', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">        
         <input type="checkbox" id="menu-toggle" aria-controls="mobile-menu">
-
-        <!-- Header (Desktop Nav and Hamburger Icon) -->
         <header class="w-full px-6 py-6 flex items-center justify-between sticky top-0 bg-black/80 backdrop-blur-sm z-50">
-            <a href="https://www.tewodrosashenafi.work/" class="text-lg font-semibold tracking-wide logo-glow">TewodrosAshenafi.work</a>
-            
-            <!-- Desktop Navigation -->
+            <a href="https://www.tewodrosashenafi.work/" class="text-lg font-semibold tracking-wide logo-glow">TewodrosAshenafi.work</a>            
             <nav class="space-x-6 text-sm opacity-90 hidden md:flex">
                 <a href="#projects" class="nav-link" data-text="projects">projects</a>
                 <a href="#business" class="nav-link" data-text="business">business</a>
                 <a href="contact.html" class="nav-link" data-text="contact">contact</a>
                 <a href="socials.html" class="nav-link" data-text="socials">socials</a>
                 <a href="aboutme.html" class="nav-link" data-text="about me">about me</a>
-            </nav>
-            
-            <!-- Hamburger Icon (Mobile) -->
+            </nav>            
             <div class="md:hidden">
                 <label for="menu-toggle" aria-label="open menu" class="p-2 rounded focus:outline-none focus:ring-2 cursor-pointer block text-2xl">☰</label>
             </div>
         </header>
-
-        <!-- Mobile Navigation Menu -->
         <nav id="mobile-menu" class="md:hidden w-full px-6 mb-4">
             <div class="border-2 border-white/80 rounded-xl p-6 flex flex-col space-y-3 shadow-xl">
                 <!-- Using the same nav-link class for mobile to maintain consistency and glow effect -->
@@ -271,36 +218,26 @@
                 <a href="aboutme.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="about me">ABOUT ME</a>
             </div>
         </nav>
-
-        
-        <section class="main-content-scale min-h-[calc(100vh-100px)] max-w-7xl mx-auto px-6 py-16 flex flex-col justify-center items-center lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">
-            
-            <!-- Left Column: Image, Name, CTA (Centered on Mobile and Desktop) -->
+        <section class="main-content-scale min-h-[calc(100vh-100px)] max-w-7xl mx-auto px-6 py-16 flex flex-col justify-center items-center lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">            
             <div class="lg:col-span-4 flex flex-col items-center text-center mb-12 lg:mb-0">
                 <img src="img/pfp.jpg" alt="Tewodros Ashenafi Profile" 
                      class="w-32 h-32 rounded-full object-cover mb-8 opacity-0 animate-fadeInUp 
                                  neon-photo-frame" 
                      style="animation-delay: 0.2s;">
-
                 <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight animate-h1 mb-3 logo-glow" style="animation-delay: 0.4s;">
                     Tewodros Ashenafi
                 </h1>
                 <p class="text-sm sm:text-lg text-gray-300 animate-p max-w-2xl mb-8" style="animation-delay: 0.6s;">
                     Front-end dev & Financial Analyst
                 </p>
-                
                 <div class="opacity-0 animate-fadeInUp" style="animation-delay: 1.4s;">
                     <a href="contact.html" class="cta-outline inline-flex items-center justify-center gap-3 rounded-full border border-white/20 px-8 py-4 text-lg font-medium">Contact Now</a>
                 </div>
             </div>
-
-            <!-- Right Column: About Text and Skills/Details (Centered) -->
             <div class="lg:col-span-8 text-center">
-                
                 <h2 class="matrix-text text-4xl font-extrabold tracking-tight mb-6 opacity-0 animate-fadeInUp" data-text="Who am i?" style="animation-delay: 0.8s;">
                     Who am i?
                 </h2>
-
                 <div class="space-y-6">
                     <p class="text-lg text-white/90 opacity-0 animate-p" style="animation-delay: 1.0s;">
                         My journey began in "Software Development", when i was 12 was fascinated by godot 2d game development at that time. i tried creating fun and simple games back then, then at 13 i got into basic web development, securing a few certificates from sololearn. ever since then ive been excited to write code to give life to my imagination!
@@ -314,10 +251,10 @@
                 </div>
             </div>
         </section>
-
     </main>
 </body>
 </html>
+
 
 
 
