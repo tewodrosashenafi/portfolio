@@ -7,38 +7,140 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @font-face {
-          font-family: 'American Captain';
-          src: url('/fonts/AmericanCaptain.woff2') format('woff2'),
-               url('/fonts/AmericanCaptain.ttf') format('truetype'),
-               url('/fonts/AmericanCaptain.otf') format('opentype');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
+            font-family: 'American Captain';
+            src: url('/fonts/AmericanCaptain.woff2') format('woff2'),
+                 url('/fonts/AmericanCaptain.ttf') format('truetype'),
+                 url('/fonts/AmericanCaptain.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
+
         .dark-portfolio :focus {
-          outline: 2px solid rgba(255,255,255,0.12);
-          outline-offset: 2px;
+            outline: 2px solid rgba(255,255,255,0.12);
+            outline-offset: 2px;
         }
+
+        /* --- Animations for Hero Section --- */
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideInLeftSlight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         .animate-h1 { animation: slideInLeft 0.6s ease-out forwards; }
         .animate-p { opacity: 0; animation: slideInLeftSlight 0.6s ease-out 0.18s forwards; }
-        .animate-aside { opacity: 0; animation: fadeInUp 0.6s ease-out 0.2s forwards; }
+
+        /* --- Logo Glow Effect --- */
+        .logo-glow {
+            transition: text-shadow 0.3s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.1); 
+        }
+
+        .logo-glow:hover, .logo-glow:focus {
+            text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px rgba(255, 255, 255, 0.7);
+        }
+        
+        /* --- Nav Link Glitch Effect --- */
+        @keyframes shift-glitch {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+            20% { clip-path: inset(0 0 80% 0); transform: translateX(-1px); }
+            40% { clip-path: inset(40% 0 0 0); transform: translateX(1px); }
+            60% { clip-path: inset(0 0 50% 0); transform: translateX(-0.5px); }
+            80% { clip-path: inset(60% 0 0 0); transform: translateX(0.5px); }
+        }
+
+        .nav-link {
+            position: relative;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .nav-link:hover::before, .nav-link:focus::before {
+            opacity: 1;
+            animation: shift-glitch 0.4s steps(5, end) infinite; 
+            text-shadow: 0 0 3px #fff, 0 0 9px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- Button Effects --- */
+        .cta-filled {
+            transition: all 0.3s ease;
+        }
+        .cta-filled:hover, .cta-filled:focus {
+            transform: scale(1.03);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-outline {
+            transition: all 0.3s ease;
+        }
+        .cta-outline:hover, .cta-outline:focus {
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                        0 0 15px rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
+        }
+        
+        @keyframes slideInRight { 
+            from { opacity: 0; transform: translateX(50px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+
+        /* --- Portfolio Box Effects --- */
+        .neon-box {
+            opacity: 0; 
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .neon-box:hover, .neon-box:focus {
+            transform: scale(1.02);
+            border-color: #fff;
+            box-shadow: 0 0 15px #fff, 
+                        0 0 25px rgba(255, 255, 255, 0.7), 
+                        0 0 40px rgba(255, 255, 255, 0.4);
+        }
+        
+        .box-1 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards; }
+        .box-2 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards; }
+        .box-3 { animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards; }
+
+        /* --- Mobile Menu Control (remains unchanged) --- */
         #menu-toggle { display: none; }
         #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.8,0,0.2,1); }
         #menu-toggle:checked ~ #mobile-menu { max-height: 500px; }
         @media (min-width: 768px) { #mobile-menu, #menu-toggle, label[for="menu-toggle"] { display: none; } }
+
+        /* --- Mobile Responsiveness (remains unchanged) --- */
         @media (max-width: 767px) {
             .responsive-padding { padding-top: 5rem !important; padding-bottom: 5rem !important; }
             .responsive-maxwidth { max-width: 80rem !important; }
             .responsive-text-xl { font-size: 3rem !important; }
         }
+
+        /* --- Hero Glitch Effect --- */
         .matrix-text {
             position: relative;
             text-shadow: 0 0 10px #fff, 0 0 20px #000, 0 0 30px #000;
-            z-index: 2; /* Ensure it stays above other potential effects */
+            z-index: 2;
         }
+
         .matrix-text::before {
             content: attr(data-text);
             position: absolute;
@@ -52,6 +154,7 @@
             color: #fff;
             text-shadow: 0 0 3px #fff, 0 0 10px #fff;
         }
+
         @keyframes glitch {
             0%, 100% {
                 clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
@@ -66,54 +169,98 @@
                 transform: translate(5px, 5px);
             }
         }
+        
+        /* --- CUSTOM SCALING FOR DESKTOP (md: and above) --- */
+        @media (min-width: 768px) {
+            /* Header Padding: Scale px-6 py-6 (1.5rem) by 125% -> 1.875rem (30px) */
+            .md-scale-header {
+                padding-left: 1.875rem; 
+                padding-right: 1.875rem;
+                padding-top: 1.875rem;
+                padding-bottom: 1.875rem;
+            }
+
+            /* Logo Text: Scale text-lg (1.125rem) by 125% -> 1.406rem */
+            .md-scale-logo-text {
+                font-size: 1.41rem;
+            }
+            
+            /* Nav Link Text: Scale text-sm (0.875rem) by 125% -> 1.093rem */
+            .md-scale-nav-text {
+                font-size: 1.1rem;
+            }
+            
+            /* Nav Link Spacing: Scale space-x-6 (1.5rem) by 125% -> 1.875rem */
+            .md-scale-space-x-nav > * + * {
+                margin-left: 1.875rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-black">
+
     <main class="dark-portfolio min-h-screen bg-black text-white font-sans" style="font-family: 'American Captain', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+        
         <input type="checkbox" id="menu-toggle" aria-controls="mobile-menu">
-        <header class="w-full px-6 py-6 flex items-center justify-between">
-            <a href="https://www.tewodrosashenafi.work/" class="text-lg font-semibold tracking-wide">TewodrosAshenafi.work</a>
-            <nav class="space-x-6 text-sm opacity-90 hidden md:flex">
-                <a href="#projects" class="hover:underline">projects</a>
-                <a href="#business" class="hover:underline">business</a>
-                <a href="#contact" class="hover:underline">contact</a>
-                <a href="#socials" class="hover:underline">socials</a>
-                <a href="#about" class="hover:underline">about me</a>
+
+        <!-- HEADER: Now using custom scaling classes for md: and above -->
+        <header class="w-full px-6 py-6 flex items-center justify-between md-scale-header">
+            <!-- LOGO: Applied custom scaled font size -->
+            <a href="https://www.tewodrosashenafi.work/" class="text-lg md-scale-logo-text font-semibold tracking-wide logo-glow">TewodrosAshenafi.work</a>
+            
+            <!-- DESKTOP NAVIGATION: Applied custom scaled font size and spacing -->
+            <nav class="md-scale-space-x-nav text-sm opacity-90 hidden md:flex">
+                <a href="#projects" class="nav-link md-scale-nav-text" data-text="projects">projects</a>
+                <a href="#business" class="nav-link md-scale-nav-text" data-text="business">business</a>
+                <a href="#contact" class="nav-link md-scale-nav-text" data-text="contact">contact</a>
+                <a href="#socials" class="nav-link md-scale-nav-text" data-text="socials">socials</a>
+                <a href="aboutme.html" class="nav-link md-scale-nav-text" data-text="about me">about me</a>
             </nav>
+            
+            <!-- Mobile menu toggle (remains unchanged) -->
             <div class="md:hidden">
                 <label for="menu-toggle" aria-label="open menu" class="p-2 rounded focus:outline-none focus:ring-2 cursor-pointer block">☰</label>
             </div>
         </header>
+
+        <!-- MOBILE MENU (remains unchanged) -->
         <nav id="mobile-menu" class="md:hidden w-full max-w-[90rem] responsive-maxwidth mx-auto px-6 mb-4">
             <div class="bg-white/ border-2 border-white/80 rounded-xl p-6 flex flex-col space-y-3 shadow-xl">
                 <a href="#projects" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">PROJECTS</a>
                 <a href="#business" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">BUSINESS</a>
                 <a href="#contact" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">CONTACT</a>
                 <a href="#socials" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">SOCIALS</a>
-                <a href="#about" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">ABOUT ME</a>
+                <a href="aboutme.html" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">ABOUT ME</a>
             </div>
         </nav>
+
+        <!-- HERO SECTION (remains unchanged) -->
         <section class="max-w-[90rem] responsive-maxwidth mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-12 responsive-padding" style="padding-top: 25rem; padding-bottom: 25rem;">
+            
             <div class="flex-1 w-full md:w-1/2 text-center md:text-left">
                 <h1 class="matrix-text text-xl responsive-text-xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight animate-h1" data-text="TEWODROS ASHENAFI">TEWODROS ASHENAFI</h1>
                 <p class="mt-6 text-lg sm:text-xl max-w-xl mx-auto md:mx-0 text-gray-300 animate-p">Realising your visions and building your dreams is what i aim for!</p>
                 <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#contact" class="inline-flex items-center justify-center gap-3 rounded-full bg-white/10 px-6 py-3 text-sm font-medium hover:scale-10 transition-transform">Hire me</a>
-                    <a href="#projects" class="inline-flex items-center justify-center gap-3 rounded-full border border-white/2 px-6 py-3 text-sm font-medium hover:bg-white/10 transition-colors">See projects</a>
+                    <a href="#contact" class="cta-filled inline-flex items-center justify-center gap-3 rounded-full bg-white/10 px-6 py-3 text-sm font-medium transition-transform">Hire me</a>
+                    
+                    <a href="#projects" class="cta-outline inline-flex items-center justify-center gap-3 rounded-full border border-white/20 px-6 py-3 text-sm font-medium">See projects</a>
                 </div>
             </div>
 
-            <aside class="flex-1 w-full md:w-1/2 flex flex-col items-center md:items-end mt-10 md:mt-0 animate-aside">
+            <aside class="flex-1 w-full md:w-1/2 flex flex-col items-center md:items-end mt-10 md:mt-0">
                 <div class="w-full sm:w-80 md:w-96 space-y-8">
-                    <a href="#development" class="relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-sm font-semibold tracking-widest uppercase hover:-translate-y-1 hover:shadow-2xl transform transition-all bg-black/70 backdrop-blur-sm" aria-label="DEVELOPMENT PORTFOLIO">
+                    
+                    <a href="#development" class="neon-box box-1 relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-base font-semibold tracking-widest uppercase bg-black/70 backdrop-blur-sm" aria-label="DEVELOPMENT PORTFOLIO">
                         <span class="relative z-10">DEVELOPMENT PORTFOLIO</span>
                         <span aria-hidden="true" class="absolute inset-0 rounded-2xl pointer-events-none" style="box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05)"></span>
                     </a>
-                    <a href="#financial" class="relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-sm font-semibold tracking-widest uppercase hover:-translate-y-1 hover:shadow-2xl transform transition-all bg-black/70 backdrop-blur-sm" aria-label="FINANCIAL PORTFOLIO">
+                    
+                    <a href="#financial" class="neon-box box-2 relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-base font-semibold tracking-widest uppercase bg-black/70 backdrop-blur-sm" aria-label="FINANCIAL PORTFOLIO">
                         <span class="relative z-10">FINANCIAL PORTFOLIO</span>
                         <span aria-hidden="true" class="absolute inset-0 rounded-2xl pointer-events-none" style="box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05)"></span>
                     </a>
-                    <a href="#business-portfolio" class="relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-sm font-semibold tracking-widest uppercase hover:-translate-y-1 hover:shadow-2xl transform transition-all bg-black/70 backdrop-blur-sm" aria-label="BUSINESS PORTFOLIO">
+                    
+                    <a href="#business-portfolio" class="neon-box box-3 relative block rounded-2xl border-2 border-white/80 px-6 py-6 text-center text-base font-semibold tracking-widest uppercase bg-black/70 backdrop-blur-sm" aria-label="BUSINESS PORTFOLIO">
                         <span class="relative z-10">BUSINESS PORTFOLIO</span>
                         <span aria-hidden="true" class="absolute inset-0 rounded-2xl pointer-events-none" style="box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05)"></span>
                     </a>
@@ -123,5 +270,3 @@
     </main>
 </body>
 </html>
-
-
