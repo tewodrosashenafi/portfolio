@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- PREFETCH/ASSETS FROM USER'S ORIGINAL THEME -->
+    <link rel="prefetch" href="socials.html"> 
+    <link rel="prefetch" href="contact.html"> 
+    <link rel="prefetch" href="aboutme.html">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Portfolio Simulator | Tewodros Ashenafi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- CUSTOM FONT FROM USER'S ORIGINAL THEME --- */
+        @font-face {
+            font-family: 'American Captain';
+            src: url('/fonts/AmericanCaptain.woff2') format('woff2'),
+                 url('/fonts/AmericanCaptain.ttf') format('truetype'),
+                 url('/fonts/AmericanCaptain.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            display: swap;
+        }
+
+        /* --- THEME FOCUS/OUTLINE --- */
+        .dark-portfolio :focus {
+            outline: 2px solid rgba(255,255,255,0.12);
+            outline-offset: 2px;
+        }
+
+        /* --- Animations for Hero Section (Kept for other elements) --- */
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInLeftSlight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        
+        .animate-h1 { animation: slideInLeft 0.6s ease-out forwards; }
+        .animate-p { opacity: 0; animation: slideInLeftSlight 0.6s ease-out 0.18s forwards; }
+
+        /* --- Logo Glow Effect --- */
+        .logo-glow {
+            transition: text-shadow 0.3s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.1); 
+        }
+
+        .logo-glow:hover, .logo-glow:focus {
+            text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px rgba(255, 255, 255, 0.7);
+        }
+        
+        /* --- Nav Link Glitch Effect --- */
+        @keyframes shift-glitch {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+            20% { clip-path: inset(0 0 80% 0); transform: translateX(-1px); }
+            40% { clip-path: inset(40% 0 0 0); transform: translateX(1px); }
+            60% { clip-path: inset(0 0 50% 0); transform: translateX(-0.5px); }
+            80% { clip-path: inset(60% 0 0 0); transform: translateX(0.5px); }
+        }
+
+        .nav-link {
+            position: relative;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .nav-link:hover::before, .nav-link:focus::before {
+            opacity: 1;
+            animation: shift-glitch 0.4s steps(5, end) infinite; 
+            text-shadow: 0 0 3px #fff, 0 0 9px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- Button Effects (CTA button removed, but keeping styles for consistency) --- */
+        .cta-filled {
+            transition: all 0.3s ease;
+        }
+        .cta-filled:hover, .cta-filled:focus {
+            transform: scale(1.03);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-outline {
+            transition: all 0.3s ease;
+        }
+        .cta-outline:hover, .cta-outline:focus {
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                        0 0 15px rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
+        }
+        
+        @keyframes slideInRight { 
+            from { opacity: 0; transform: translateX(50px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+
+        /* --- Neon Box Effects (Adapted for dashboard elements) --- */
+        .neon-box {
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+            backdrop-filter: blur(2px);
+        }
+        .neon-box:hover, .neon-box:focus {
+            transform: scale(1.01);
+            border-color: #fff;
+            box-shadow: 0 0 15px #fff, 
+                        0 0 25px rgba(255, 255, 255, 0.7), 
+                        0 0 40px rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- Mobile Menu Control --- */
+        #menu-toggle { display: none; }
+        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.8,0,0.2,1); }
+        #menu-toggle:checked ~ #mobile-menu { max-height: 500px; }
+        @media (min-width: 768px) { #mobile-menu, #menu-toggle, label[for="menu-toggle"] { display: none; } }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 767px) {
+            .responsive-maxwidth { max-width: 80rem !important; }
+            .responsive-text-xl { font-size: 3rem !important; }
+            .mobile-padding { padding-left: 1rem; padding-right: 1rem; }
+        }
+
+        /* --- CUSTOM SCALING FOR DESKTOP (md: and above) --- */
+        @media (min-width: 768px) {
+            .md-scale-header {
+                padding-left: 1.875rem; 
+                padding-right: 1.875rem;
+                padding-top: 1.875rem;
+                padding-bottom: 1.875rem;
+            }
+            .md-scale-logo-text { font-size: 1.41rem; }
+            .md-scale-nav-text { font-size: 1.1rem; }
+            .md-scale-space-x-nav > * + * { margin-left: 1.875rem !important; }
+        }
+
+        /* --- FINANCIAL SIMULATOR SPECIFIC STYLES --- */
+        canvas {
+            display: block;
+            width: 100%;
+            max-height: 500px; /* Increased height for better visualization */
+            border-radius: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for chart area */
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <main class="dark-portfolio min-h-screen bg-black text-white font-sans" style="font-family: 'American Captain', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+        
+        <input type="checkbox" id="menu-toggle" aria-controls="mobile-menu">
+
+        <!-- HEADER (Copied from user's theme) -->
+        <header class="w-full px-6 py-6 flex items-center justify-between md-scale-header sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-b border-white/10">
+            <!-- LOGO -->
+            <a href="https://www.tewodrosashenafi.work/" class="text-lg md-scale-logo-text font-semibold tracking-wide logo-glow">TewodrosAshenafi.work</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="space-x-6 text-sm opacity-90 hidden md:flex">
+                <a href="#data" class="nav-link" data-text="projects">projects</a>
+                <a href="#chart" class="nav-link" data-text="business">business</a>
+                <a href="contact.html" class="nav-link" data-text="contact">contact</a>
+                <a href="socials.html" class="nav-link" data-text="socials">socials</a>
+                <a href="aboutme.html" class="nav-link" data-text="about me">about me</a>
+            </nav>
+            
+            <!-- Hamburger Icon (Mobile) -->
+            <div class="md:hidden">
+                <label for="menu-toggle" aria-label="open menu" class="p-2 rounded focus:outline-none focus:ring-2 cursor-pointer block text-2xl">☰</label>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation Menu -->
+        <nav id="mobile-menu" class="md:hidden w-full px-6 mb-4">
+            <div class="border-2 border-white/80 rounded-xl p-6 flex flex-col space-y-3 shadow-xl">
+                <a href="#data" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="PROJECTS">PROJECTS</a>
+                <a href="#chart" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="BUSINESS">BUSINESS</a>
+                <a href="contact.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="contact">CONTACT</a>
+                <a href="socials.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="socials">SOCIALS</a>
+                <a href="aboutme.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="about me">ABOUT ME</a>
+            </div>
+        </nav>
+
+        <!-- FINANCIAL PORTFOLIO DASHBOARD SECTION -->
+        <section class="max-w-[90rem] mx-auto py-12 px-6 lg:px-4 responsive-maxwidth">
+
+            <header class="mb-10 text-center">
+                <h1 class="matrix-text text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight" data-text="FINANCIAL PORTFOLIO">FINANCIAL PORTFOLIO</h1>
+                <p class="mt-4 text-xl text-white/70">Monthly Average (7.0%)</p>
+            </header>
+
+            <!-- Main Content Grid (2 Columns on Large Screens) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- LEFT COLUMN (Data Table - Monthly Breakdown) -->
+                <div id="data" class="lg:order-1 p-6 rounded-2xl shadow-2xl neon-box">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-white/20 pb-2 uppercase tracking-wider text-white">Monthly Breakdown</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-white/20">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-widest">Month</th>
+                                    <th class="px-4 py-3 text-right text-xs font-medium text-white/60 uppercase tracking-widest">Return ($\%$)</th>
+                                    <th class="px-4 py-3 text-right text-xs font-medium text-white/60 uppercase tracking-widest">Cumulative Factor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table-body" class="divide-y divide-white/10">
+                                <!-- Data rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN (Chart Area - Monthly Return Visualization) -->
+                <div id="chart" class="lg:order-2 p-6 rounded-2xl shadow-2xl neon-box">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-white/20 pb-2 uppercase tracking-wider text-white">Monthly Return Visualization</h2>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // --- Utility Functions ---
+
+        /**
+         * Generates a random number between min (inclusive) and max (inclusive), 
+         * rounded to two decimal places.
+         */
+        function getRandomReturn(min, max) {
+            return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+        }
+
+        // --- Data Generation and Display ---
+
+        const monthlyLabels = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        let returnsData = [];
+
+        function generateData() {
+            returnsData = [];
+            const tableBody = document.getElementById('data-table-body');
+            
+            tableBody.innerHTML = ''; // Clear previous data
+            let totalAnnualFactor = 1.0;
+            
+            for (let i = 0; i < 12; i++) {
+                // Ensure returns are always positive as per original design (4.0% to 8.5%)
+                const returnPercentage = getRandomReturn(4.0, 8.5); 
+                const returnFactor = 1 + (returnPercentage / 100);
+                totalAnnualFactor *= returnFactor;
+                
+                const row = {
+                    month: monthlyLabels[i],
+                    percentage: returnPercentage,
+                    cumulativeFactor: totalAnnualFactor.toFixed(4)
+                };
+                returnsData.push(row);
+
+                // Add row to table
+                const newRow = tableBody.insertRow();
+                newRow.className = 'hover:bg-white/5 transition duration-150';
+                
+                let cell = newRow.insertCell();
+                cell.className = 'px-4 py-3 whitespace-nowrap text-sm font-medium text-white/90 tracking-widest';
+                cell.textContent = row.month;
+
+                cell = newRow.insertCell();
+                cell.className = 'px-4 py-3 whitespace-nowrap text-sm text-right font-mono tracking-widest';
+                cell.style.color = '#00ffc8'; // Neon green for return
+                cell.textContent = `${row.percentage.toFixed(2)}%`;
+                
+                cell = newRow.insertCell();
+                cell.className = 'px-4 py-3 whitespace-nowrap text-sm text-right text-white/70 tracking-widest';
+                cell.textContent = row.cumulativeFactor;
+            }
+            
+            // Removed the calculation and display of total annual return.
+            
+            drawChart();
+        }
+
+        // --- Chart Drawing Logic (Canvas) ---
+        let canvas, ctx;
+        let chartWidth, chartHeight;
+        
+        function drawChart() {
+            canvas = document.getElementById('performanceChart');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            
+            // Handle high-res screens and resize
+            const container = canvas.parentElement;
+            const size = container.clientWidth; // Use container width for responsiveness
+            
+            // Set canvas resolution for crisp drawing (2x for retina)
+            const dpr = window.devicePixelRatio || 1;
+            const padding = 50;
+
+            // Maintain aspect ratio, let the height be dynamically calculated based on container width
+            const calculatedHeight = Math.min(size * 0.75, 500); 
+
+            canvas.style.width = size + 'px';
+            canvas.style.height = calculatedHeight + 'px';
+            canvas.width = size * dpr;
+            canvas.height = calculatedHeight * dpr;
+            
+            ctx.scale(dpr, dpr);
+            
+            chartWidth = size - 2 * padding;
+            chartHeight = calculatedHeight - 2 * padding;
+
+            ctx.clearRect(0, 0, size, calculatedHeight);
+            ctx.translate(padding, padding + chartHeight);
+            
+            // 1. Find Max Value for Scaling
+            const maxReturn = 8.5; // Fixed max based on generation constraint
+            const minReturn = 4.0; 
+            const range = maxReturn - minReturn;
+
+            // 2. Draw Axes
+            ctx.strokeStyle = '#374151'; // Darker gray for axes
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            // X-Axis (Horizontal)
+            ctx.moveTo(0, 0);
+            ctx.lineTo(chartWidth, 0);
+            // Y-Axis (Vertical)
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, -chartHeight);
+            ctx.stroke();
+
+            // 3. Draw Grid Lines and Labels (Y-Axis)
+            ctx.fillStyle = '#e5e7eb'; // Light text for labels
+            ctx.font = '10px American Captain';
+            const ySteps = 5; // Steps for Y-axis (4.0%, 5.5%, 7.0%, 8.5%)
+            for (let i = 0; i <= ySteps; i++) {
+                const yValue = minReturn + (range / ySteps) * i;
+                const yPos = -(yValue - minReturn) / range * chartHeight;
+
+                // Grid line
+                if (i > 0) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; // Subtle white grid
+                    ctx.beginPath();
+                    ctx.moveTo(0, yPos);
+                    ctx.lineTo(chartWidth, yPos);
+                    ctx.stroke();
+                }
+
+                // Label
+                ctx.fillText(`${yValue.toFixed(1)}%`, -30, yPos + 3);
+            }
+
+            // 4. Draw Bars and X-Axis Labels
+            const barCount = returnsData.length;
+            const barWidth = chartWidth / (barCount * 1.5);
+            const gap = barWidth / 2;
+            let x = gap;
+
+            returnsData.forEach((data, index) => {
+                const barHeight = (data.percentage - minReturn) / range * chartHeight;
+                
+                // Draw Bar (Neon Effect)
+                ctx.fillStyle = '#00ffc8'; // Neon Green
+                ctx.shadowColor = 'rgba(0, 255, 200, 0.8)';
+                ctx.shadowBlur = 8;
+                ctx.fillRect(x, -barHeight, barWidth, barHeight);
+                ctx.shadowBlur = 0; // Reset shadow
+
+                // Draw Return Label on top of bar
+                ctx.fillStyle = '#ffffff'; 
+                ctx.font = '10px American Captain';
+                ctx.textAlign = 'center';
+                ctx.fillText(`${data.percentage.toFixed(1)}%`, x + barWidth / 2, -barHeight - 5);
+                
+                // Draw Month Label (X-Axis)
+                ctx.fillStyle = '#e5e7eb';
+                ctx.textAlign = 'center';
+                ctx.font = '12px American Captain';
+                ctx.fillText(data.month, x + barWidth / 2, 18);
+
+                // Move to next bar position
+                x += barWidth + gap;
+            });
+
+            // Reset translation
+            ctx.translate(-(padding), -(padding + chartHeight));
+        }
+
+        // --- Initialization ---
+
+        window.onload = function () {
+            // 1. Generate and display the initial random data and chart
+            generateData(); 
+            
+            // Resize handler to make the chart responsive
+            window.addEventListener('resize', drawChart);
+        };
+
+    </script>
+</body>
+</html>
