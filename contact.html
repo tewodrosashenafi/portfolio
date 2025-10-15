@@ -165,29 +165,30 @@
             <!-- LOGO: Links back to the main page -->
             <a href="index.html" class="text-lg md-scale-logo-text font-semibold tracking-wide logo-glow">TewodrosAshenafi.work</a>
             
-            <!-- DESKTOP NAVIGATION -->
-            <nav class="md-scale-space-x-nav text-sm opacity-90 hidden md:flex">
-                <a href="index.html#projects" class="nav-link md-scale-nav-text" data-text="projects">projects</a>
-                <a href="index.html#business" class="nav-link md-scale-nav-text" data-text="business">business</a>
-                <a href="contact.html" class="nav-link md-scale-nav-text" data-text="contact">contact</a>
-                <a href="socials.html" class="nav-link md-scale-nav-text" data-text="socials">socials</a>
-                <a href="aboutme.html" class="nav-link md-scale-nav-text" data-text="about me">about me</a>
+            <!-- Desktop Navigation -->
+            <nav class="space-x-6 text-sm opacity-90 hidden md:flex">
+                <a href="#projects" class="nav-link" data-text="projects">projects</a>
+                <a href="#business" class="nav-link" data-text="business">business</a>
+                <a href="contact.html" class="nav-link" data-text="contact">contact</a>
+                <a href="socials.html" class="nav-link" data-text="socials">socials</a>
+                <a href="aboutme.html" class="nav-link" data-text="about me">about me</a>
             </nav>
             
-            <!-- Mobile menu toggle -->
+            <!-- Hamburger Icon (Mobile) -->
             <div class="md:hidden">
-                <label for="menu-toggle" aria-label="open menu" class="p-2 rounded focus:outline-none focus:ring-2 cursor-pointer block">☰</label>
+                <label for="menu-toggle" aria-label="open menu" class="p-2 rounded focus:outline-none focus:ring-2 cursor-pointer block text-2xl">☰</label>
             </div>
         </header>
 
-        <!-- MOBILE MENU -->
-        <nav id="mobile-menu" class="md:hidden w-full max-w-[90rem] responsive-maxwidth mx-auto px-6 mb-4">
-            <div class="bg-white/ border-2 border-white/80 rounded-xl p-6 flex flex-col space-y-3 shadow-xl">
-                <a href="index.html#projects" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">PROJECTS</a>
-                <a href="index.html#business" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">BUSINESS</a>
-                <a href="contact.html" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">CONTACT</a>
-                <a href="socials.html" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">SOCIALS</a>
-                <a href="aboutme.html" class="text-lg font-bold tracking-widest uppercase hover:text-white/70 transition-colors py-1 w-full block">ABOUT ME</a>
+        <!-- Mobile Navigation Menu -->
+        <nav id="mobile-menu" class="md:hidden w-full px-6 mb-4">
+            <div class="border-2 border-white/80 rounded-xl p-6 flex flex-col space-y-3 shadow-xl">
+                <!-- Using the same nav-link class for mobile to maintain consistency and glow effect -->
+                <a href="#projects" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="projects">PROJECTS</a>
+                <a href="#business" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="business">BUSINESS</a>
+                <a href="contact.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="contact">CONTACT</a>
+                <a href="socials.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="socials">SOCIALS</a>
+                <a href="aboutme.html" class="nav-link text-lg font-bold tracking-widest uppercase py-1 w-full block" data-text="about me">ABOUT ME</a>
             </div>
         </nav>
 
@@ -236,3 +237,4 @@
     </main>
 </body>
 </html>
+
